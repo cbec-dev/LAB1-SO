@@ -1,120 +1,75 @@
+#include <string.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
- 
+#include <unistd.h>
+#include "comparador.h"
 
-
-int findString(char *str, char *search) 
+int main (int argc, char **argv)
 {
-    int i = 0;
-    int j = 0;
-    int cont = 0;
-    while(i < strlen(str))
-    {
-        if (str[i]==search[j])
-        {
-            cont++;
-            j++;
-            if (cont == strlen(search))
-            {
-                //printf("Encontrado!\n");
-                return 1;
-                break;
-            }
-        }
-        else
-        {
-            j = 0;
-            cont = 0;
-        }
 
-        i++;
+	char *file = NULL;
+	int cursor = 0;
+	char *search = NULL;
+	int lineSize = 0;
+	int linesToRead = 0;
+	int index;
+	int c;
 
-        //printf("%i", cont);
+	opterr = 0;
 
-    }
-    return 0;
-    //printf("\n");
-    //printf("%i", strlen(search));
+		while ((c = getopt (argc, argv, "i:c:p:n:l:")) != -1)	//i: archivo, c: cursor(línea), p: cadena a buscar,
+	  														//n: n° caracteres en cada línea, l: n° líneas a trabajar
+		switch (c)
+		{
+		case 'i':
+			file = optarg;
+			break;
+		case 'c':
+			cursor = atoi(optarg);
+			break;
+		case 'p':
+			search = optarg;
+			break;
+		case 'n':
+			lineSize = atoi(optarg);
+			break;
+		case 'l':
+			linesToRead = atoi(optarg);
+			break;
+		case '?':
+		if (optopt == 'c')
+			fprintf (stderr, "Opción -%c requiere un argumento.\n", optopt);
+		else if (isprint (optopt))
+		  	fprintf (stderr, "Opción desconocida `-%c'.\n", optopt);
+		else
+		  	fprintf (stderr,
+           		"Opción con caracter desconocido `\\x%x'.\n",
+				optopt);
+			return 1;
+		default:
+		abort ();
+		}
 
-}
+	printf ("Archivo: %s\nLínea inicial: %i\nString: %s\nTamaño línea: %i\nLíneas a trabajar: %i\n",
+	          file, cursor, search, lineSize, linesToRead);
 
-
-
-char **linesToCompare(char* name, int cursor, int lines){
-    FILE *in;
-    in = fopen(name, "r");
-    char linea[100];
-
-
-    int cont=0;
-    int aux=cursor;
-    int aux2=0;
-
-
-    char **result=NULL;
-    result=(char **)malloc(sizeof(char*)*(lines));
-    for (int i = 0; i < lines; ++i){
-        result[i]=(char*)malloc(sizeof(char)*100);
-    }
-
-
-
-    while(feof(in)==0){
-        fgets(linea,100,in);
-        if (cont==aux){
-            if (aux2<lines)
-            {
-                //result[aux2]=linea;
-                strcpy(result[aux2], linea);
-                //printf("result: %s\n", result[aux2]);
-                //printf("linea: %s\n", linea);
-                aux2++;
-                aux++;
-            }
-        }
-        cont++;
-    } 
-    fclose(in);
-
-
-    //printf("%s\n", result[0]);
-    //printf("%s\n", result[1]);
-
-    return result;
-}
-void main()
-{
-    char *str;
-    char *search;
-    char *name;
-    int linesToRead = 2;
-    int cursor = 2;
-
-
-
-    str =(char *) malloc(60*sizeof(char));
-    search =(char *) malloc(4*sizeof(char));
-
-    strcpy(str, "AGAAAGGCATAAATATATTAGTATTTGTGTACATCTGTTCCTTCCTGTGTGACCCTAAGT");
-    strcpy(search, "AAAA");
-
-//    int hola = findString(str, search);
-//    int aux= cantidadLineas("ejemplo1.txt");
-
-
-//    printf("%i\n", hola);
-//    printf("%i\n", aux);
+	for (index = optind; index < argc; index++)
+		printf ("Argumento sin opción %s\n", argv[index]);
 
 
     char **lines;
-    lines = linesToCompare("ejemplo1.txt", cursor, linesToRead);
+    lines = linesToCompare(file, cursor, linesToRead);
 
     int i = 0;
     while(i<linesToRead)
     {
-        int aux = findString(lines[i], "TGAG");
-        printf("%s: %i \n", lines[i], aux);
+        int aux = findString(lines[i], search);
+        if(aux==1) printf("%s: SI\n", lines[i]);
+        if(aux==0) printf("%s: NO\n", lines[i]);
         i++;
     }
+
+
+    return 0;
 }
