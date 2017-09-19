@@ -51,11 +51,11 @@ int main (int argc, char **argv)
 		abort ();
 		}
 
-	printf ("Archivo: %s\nLínea inicial: %i\nString: %s\nTamaño línea: %i\nLíneas a trabajar: %i\n",
-	          file, cursor, search, lineSize, linesToRead);
-
 	for (index = optind; index < argc; index++)
 		printf ("Argumento sin opción %s\n", argv[index]);
+
+	printf ("Archivo: %s\nLínea inicial: %i\nString: %s\nTamaño línea: %i\nLíneas a trabajar: %i\n",
+          file, cursor, search, lineSize, linesToRead);
 
 
     char **lines;
