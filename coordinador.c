@@ -117,6 +117,11 @@ int main (int argc, char **argv)
 	int lines = countLines(file, lineSize);
 
 	printf("%i\n", lines);
+	if(nProcesos>lines)
+	{
+		printf("Error: Número de procesos mayor que el número de líneas\n");
+		return 0;
+	}
 	if(lines%nProcesos==0) printf("se crean %d procesos y trabajan %d líneas cada uno\n", nProcesos, lines/nProcesos);
 	else
 	{
