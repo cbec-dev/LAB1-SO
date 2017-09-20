@@ -78,6 +78,7 @@ int main (int argc, char **argv)
 
 	//forkComparador(file, 3, search, lineSize, 2); por ahora la funcion solo forkea un comparador...
 	forkComparadores(file, search, lineSize, nProcesos);
+	while (wait(NULL) > 0);			//Esperar a que terminen los procesos hijos.
 
 
 	return 1;
