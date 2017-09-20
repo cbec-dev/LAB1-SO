@@ -54,8 +54,15 @@ int main (int argc, char **argv)
 	for (index = optind; index < argc; index++)
 		printf ("Argumento sin opción %s\n", argv[index]);
 
-	printf ("Archivo: %s\nLínea inicial: %i\nString: %s\nTamaño línea: %i\nLíneas a trabajar: %i\n",
-          file, cursor, search, lineSize, linesToRead);
+	printf("-----------------------------------\n");
+	printf("COMPARADOR\n");
+	printf("pid: %i\n", getpid());
+	printf("Archivo: %s\n", file);
+	printf("Línea inicial: %i\n", cursor);
+	printf("String: %s\n", search);
+	printf("Tamaño Línea: %i\n", lineSize);
+	printf("Líneas a trabajar: %i\n", linesToRead);
+	printf("-----------------------------------\n");
 
 
     char **lines;
