@@ -54,14 +54,14 @@ int main (int argc, char **argv)
 	for (index = optind; index < argc; index++)
 		printf ("Argumento sin opción %s\n", argv[index]);
 
-	printf("-----------------------------------\n");
-	printf("COMPARADOR\n");
+	//printf("-----------------------------------\n");
+	printf("COMPARADOR - ");
 	printf("pid: %i\n", getpid());
-	printf("Archivo: %s\n", file);
-	printf("Línea inicial: %i\n", cursor);
-	printf("String: %s\n", search);
-	printf("Tamaño Línea: %i\n", lineSize);
-	printf("Líneas a trabajar: %i\n", linesToRead);
+	//printf("Archivo: %s\n", file);
+	//printf("Línea inicial: %i\n", cursor);
+	//printf("String: %s\n", search);
+	//printf("Tamaño Línea: %i\n", lineSize);
+	//printf("Líneas a trabajar: %i\n", linesToRead);
 	printf("-----------------------------------\n");
 
 
@@ -72,8 +72,8 @@ int main (int argc, char **argv)
     while(i<linesToRead)
     {
         int aux = findString(lines[i], search);
-        if(aux==1) printf("%s: SI\n", lines[i]);
-        if(aux==0) printf("%s: NO\n", lines[i]);
+        if(aux==1) printf("%s: SI\n", lines[i]);	//Imprime resultado
+        if(aux==0) printf("%s: NO\n", lines[i]);	//Imprime resultado
         i++;
     }
 

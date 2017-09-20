@@ -3,50 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include "coordinador.h"
 
-
-int countLines(char *fileName, int lineSize)	//Función que cuenta las lineas del archivo de entrada
-{
-	FILE *file;
-	file = fopen(fileName, "r");
-	int count = 0;
-	char line[lineSize+2];
-	int countAux = 0;
-	char c;
-	while(feof(file)==0)
-	{
-		c = fgetc(file);
-		if(countAux==60) 
-		{
-			c = fgetc(file);
-			countAux = 0;
-			count++;
-		}
-		countAux++;
-	}
-	fclose(file);
-	return count;
-}
-
-
-int forkComparador(char *i, int c, char *p, int n, int l)
-{
-	char caux[12];
-	char naux[12];
-	char laux[12];
-	sprintf(caux, "%d", c);
-	sprintf(naux, "%d", n);
-	sprintf(laux, "%d", l);
-
-	int pid1 = fork();
-	if(pid1==0) 
-	{
-		execl("./comparador", "./comparador","-i",i,"-c",caux,"-p",p,"-n",naux,"-l",laux, (const char *)NULL);
-		printf("exec falló\n");
-	}
-	//return getpid();	// retornar el pid del comparador creado
-	return 1;
-}
 
 
 
@@ -114,21 +74,12 @@ int main (int argc, char **argv)
 
 
 
-	int lines = countLines(file, lineSize);
-
-	printf("%i\n", lines);
-	if(nProcesos>lines)
-	{
-		printf("Error: Número de procesos mayor que el número de líneas\n");
-		return 0;
-	}
-	if(lines%nProcesos==0) printf("se crean %d procesos y trabajan %d líneas cada uno\n", nProcesos, lines/nProcesos);
-	else
-	{
-		printf("Los primeros %d procesos trabajan %d líneas cada uno.\n", nProcesos-1, lines/nProcesos);
-		printf("El último proceso trabaja %d líneas.\n", (lines/nProcesos)+(lines%nProcesos));
-	}
+	//int lines = countLines(file, lineSize);			//Se cuentan las lineas
 
 	//forkComparador(file, 3, search, lineSize, 2); por ahora la funcion solo forkea un comparador...
+	forkComparadores(file, search, lineSize, nProcesos);
+
+
+	return 1;
 
 }
