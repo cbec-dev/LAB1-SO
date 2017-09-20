@@ -77,10 +77,18 @@ int main (int argc, char **argv)
 	//int lines = countLines(file, lineSize);			//Se cuentan las lineas
 
 	//forkComparador(file, 3, search, lineSize, 2); por ahora la funcion solo forkea un comparador...
-	forkComparadores(file, search, lineSize, nProcesos);
-	while (wait(NULL) > 0);			//Esperar a que terminen los procesos hijos.
+	if (forkComparadores(file, search, lineSize, nProcesos))
+	{
+		while (wait(NULL) > 0);			//Esperar a que terminen los procesos hijos.
+	}
+	else
+	{
+		while (wait(NULL) > 0);			//Esperar a que terminen los procesos hijos.
+		printf("ERROR: No se pudieron forkear todos los comparadores.");
+		return 1;	//Salida anormal
+	}
 
 
-	return 1;
+	return 0;	//Todos los comparadores funcionaron correctamente
 
 }

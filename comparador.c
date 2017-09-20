@@ -55,25 +55,27 @@ int main (int argc, char **argv)
 		printf ("Argumento sin opción %s\n", argv[index]);
 
 	//printf("-----------------------------------\n");
-	printf("COMPARADOR - ");
-	printf("pid: %i\n", getpid());
+	//printf("COMPARADOR - ");
+	//printf("pid: %i\n", getpid());
 	//printf("Archivo: %s\n", file);
 	//printf("Línea inicial: %i\n", cursor);
 	//printf("String: %s\n", search);
 	//printf("Tamaño Línea: %i\n", lineSize);
 	//printf("Líneas a trabajar: %i\n", linesToRead);
-	printf("-----------------------------------\n");
-
 
     char **lines;
     lines = linesToCompare(file, cursor, linesToRead);
+
+    //printf("-----------------------------------\n");
+
+    //printf("COMPARADOR - pid: %i\n Linea inicial: %i\n", getpid(), cursor);
 
     int i = 0;
     while(i<linesToRead)
     {
         int aux = findString(lines[i], search);
-        if(aux==1) printf("%s: SI\n", lines[i]);	//Imprime resultado
-        if(aux==0) printf("%s: NO\n", lines[i]);	//Imprime resultado
+        if(aux==1) printf("%s: SI, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());	//Imprime resultado
+        if(aux==0) printf("%s: NO, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());	//Imprime resultado
         i++;
     }
 

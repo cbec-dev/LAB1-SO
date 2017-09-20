@@ -44,7 +44,8 @@ int forkComparador(char *i, int c, char *p, int n, int l)		// Función que forke
 	if(pid==0) 
 	{
 		execl("./comparador", "./comparador","-i",i,"-c",caux,"-p",p,"-n",naux,"-l",laux, (const char *)NULL);
-		printf("exec falló\n");
+		//printf("exec falló\n");
+		return 0;
 	} else if (pid > 0) 
 	{
     	//wait(NULL); // Si se usa este wait se espera a que termine cada proceso cada vez que se crea uno
@@ -83,8 +84,8 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 			{
 				actualLine = actualLine + lines/nProcesos;
 				creados++;
-				//printf("ACTUAL LINE: %d\n", actualLine);
 			}
+			else return 0; //Falla un fork, no se pudieron forkear todos los procesos
 		}
 		return 1;
 
@@ -102,6 +103,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 				actualLine = actualLine + lines/nProcesos;
 				creados++;
 			}
+			else return 0;	//Falla un fork, No se pudieron forkear todos los procesos
 
 		}
 
@@ -111,6 +113,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 				creados++;
 				return 1;
 			}
+		else return 0;		//Falla un fork, No se pudieron forkear todos los procesos
 	}
 
 	return 0; 	//No se pudieron forkear todos los procesos
