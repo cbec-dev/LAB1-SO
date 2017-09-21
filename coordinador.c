@@ -60,16 +60,19 @@ int main (int argc, char **argv)
 	for (index = optind; index < argc; index++)
 		printf ("Argumento sin opción %s\n", argv[index]);
 
+	FILE *in;			//Checkeando si archivo existe
+	in = fopen(file, "r");
+	if(in==NULL)
+	{
+		printf("ERROR: Archivo %s no existe\n", file);
+		return 1;
+	}
+	fclose(in);
 
-/*	printf("-----------------------------------\n");
-	printf("COORDINADOR\n");
-	printf("pid: %i\n", getpid());
-	printf("archivo: %s\n", file);
-	printf("numero procesos: %i\n", nProcesos);
-	printf("tamaño linea: %i\n", lineSize);
-	printf("cadena a buscar: %s\n", search);
-	printf("mostrar resultados: %i\n", flagShow);
-	printf("-----------------------------------\n");*/
+
+
+
+
 	
 	if (forkComparadores(file, search, lineSize, nProcesos))
 	{
@@ -89,6 +92,7 @@ int main (int argc, char **argv)
 	strcat(nombreArchivoFinal,search);
 	strcat(nombreArchivoFinal,".txt");
 	salidaFinal=fopen(nombreArchivoFinal,"w");
+	printf("Resultados:\n");
 	for (int i = 0; i < nProcesos; ++i){
 		char nombreArchivoParcial[]="rp";
 		char guion[]="_";

@@ -18,7 +18,7 @@ int countLines(char *fileName, int lineSize)	//Función que cuenta las lineas de
 	while(feof(file)==0)
 	{
 		c = fgetc(file);
-		if(countAux==60) 
+		if(countAux==lineSize) 
 		{
 			c = fgetc(file);
 			countAux = 0;
@@ -86,6 +86,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 			}
 			else return 0; //Falla un fork, no se pudieron forkear todos los procesos
 		}
+		printf("Se crearon %i proceso(s) comparador(es) que trabajan %i línea(s) cada uno\n", creados, lines/nProcesos);
 		return 1;
 
 	}
@@ -108,6 +109,9 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 			{
 				actualLine = actualLine + (lines/nProcesos)+(lines%nProcesos);
 				creados++;
+				printf("Se crearon %i procesos comparadores donde:\n", creados);
+				printf("Los primeros %i trabajan %i línea(s)\n", creados-1, lines/nProcesos);
+				printf("El último trabaja %i línea(s)\n", (lines/nProcesos)+(lines%nProcesos));
 				return 1;
 			}
 		else return 0;		//Falla un fork, No se pudieron forkear todos los procesos
