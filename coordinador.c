@@ -112,10 +112,10 @@ int main (int argc, char **argv)
 
     	FILE *entrada;
     	entrada=fopen(nombreArchivoParcial,"r");
-    	char linea[67];
+    	char linea[lineSize];
     	int cont=0;
     	while((feof(entrada))==0){
-    		fgets(linea,67, entrada);
+    		fgets(linea,lineSize, entrada);
     		cont++;
     	}
     	rewind(entrada);
