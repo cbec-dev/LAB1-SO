@@ -85,7 +85,6 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 		{
 			if (forkComparador(i, actualLine, p, n, lines/nProcesos, creados))	//Si fork es exitoso
 			{
-				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + lines/nProcesos;
 				creados++;
 				
@@ -105,7 +104,6 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 		{
 			if (forkComparador(i, actualLine, p, n, lines/nProcesos, creados))	//Si fork es exitoso
 			{
-				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + lines/nProcesos;
 				creados++;
 			}
@@ -115,7 +113,6 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 
 		if (forkComparador(i, actualLine, p, n, (lines/nProcesos)+(lines%nProcesos), creados)) 
 			{
-				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + (lines/nProcesos)+(lines%nProcesos);
 				creados++;
 				return 1;

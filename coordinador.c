@@ -92,6 +92,28 @@ int main (int argc, char **argv)
 	}
 
 
+	//REALIZAR ARCHIVO DE SALIDA FINAL
+	FILE *salidaFinal;
+	salidaFinal=fopen("salida.txt","w");
+	fclose(salidaFinal);
+	for (int i = 0; i < nProcesos; ++i){
+		FILE *salidaFinal2;
+		salidaFinal2=fopen("salida.txt","a");
+
+		char nombreArchivoParcial[]="rc";
+		char guion[]="_";
+		char procActual[5];
+    	sprintf(procActual,"%d",i);
+    	strcat(nombreArchivoParcial,guion);
+    	strcat(nombreArchivoParcial,search);
+    	strcat(nombreArchivoParcial, guion);
+    	strcat(nombreArchivoParcial, procActual);
+    	strcat(nombreArchivoParcial, ".txt");
+    	printf("nombre archivo comparador: %s\n",nombreArchivoParcial);
+    	fclose(salidaFinal2);
+	}
+
+
 	return 0;	//Todos los comparadores funcionaron correctamente
 
 }
