@@ -91,11 +91,11 @@ int main (int argc, char **argv)
         int aux = findString(lines[i], search);
         if(aux==1) {
         	printf("%s: SI, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
-        	fprintf(archivoSalida, "%s: SI\n", lines[i]);
+        	fprintf(archivoSalida, "%s\tSI\n", lines[i]);
         }	//Imprime resultado
         if(aux==0) {
         	printf("%s: NO, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
-        	fprintf(archivoSalida, "%s: NO\n", lines[i]);
+        	fprintf(archivoSalida, "%s\tNO\n", lines[i]);
         }i++;
 
         fclose(archivoSalida);
