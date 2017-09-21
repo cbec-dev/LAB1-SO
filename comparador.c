@@ -80,7 +80,7 @@ int main (int argc, char **argv)
     	FILE *archivoNuevo;
     	FILE *archivoSalida;
     	char guinBajo[]="_";
-    	char nombre[]="rc";
+    	char nombre[]="rp";
     	char pidx[5];
     	sprintf(pidx,"%d",numeroProceso);
     	strcat(nombre,guinBajo);
