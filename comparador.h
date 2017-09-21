@@ -39,10 +39,10 @@ int findString(char *str, char *search)
 
 
 
-char **linesToCompare(char* name, int cursor, int lines){
+char **linesToCompare(char* name, int cursor, int lines, int lineSize){
     FILE *in;
     in = fopen(name, "r");
-    char linea[100];
+    char linea[lineSize];
 
 
     int cont=0;
@@ -59,7 +59,7 @@ char **linesToCompare(char* name, int cursor, int lines){
 
 
     while(feof(in)==0){
-        fgets(linea,100,in);
+        fgets(linea,lineSize+1,in);
         linea[strcspn(linea, "\n")] = 0;       //Para quitar el salto de línea al final de linea
         if (cont==aux){
             if (aux2<lines)

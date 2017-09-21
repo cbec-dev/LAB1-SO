@@ -64,7 +64,7 @@ int main (int argc, char **argv)
 	//printf("Líneas a trabajar: %i\n", linesToRead);
 
     char **lines;
-    lines = linesToCompare(file, cursor, linesToRead);
+    lines = linesToCompare(file, cursor, linesToRead, lineSize+1);
 
     //printf("-----------------------------------\n");
 
