@@ -15,7 +15,7 @@ lab1:
 	@echo ' '
 	@echo $@ compilado en el directorio $(DIR_OUTPUT)
 	@echo "Ingrese al directorio '"$(DIR_OUTPUT)"' escribiendo: cd "$(DIR_OUTPUT)
-	@echo "Ejecute el programa haciendo: ./"$(NOMBRE_EJECUTABLE)""
+	@echo "Para ejecutar escriba: ./"$(NOMBRE_EJECUTABLE)""
 	@echo ' '
 
 clean:

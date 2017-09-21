@@ -58,21 +58,8 @@ int main (int argc, char **argv)
 	for (index = optind; index < argc; index++)
 		printf ("Argumento sin opción %s\n", argv[index]);
 
-	//printf("-----------------------------------\n");
-	//printf("COMPARADOR - ");
-	//printf("pid: %i\n", getpid());
-	//printf("Archivo: %s\n", file);
-	//printf("Línea inicial: %i\n", cursor);
-	//printf("String: %s\n", search);
-	//printf("Tamaño Línea: %i\n", lineSize);
-	//printf("Líneas a trabajar: %i\n", linesToRead);
-
     char **lines;
     lines = linesToCompare(file, cursor, linesToRead, lineSize+1);
-
-    //printf("-----------------------------------\n");
-
-    //printf("COMPARADOR - pid: %i\n Linea inicial: %i\n", getpid(), cursor);
 
     int i = 0;
     char guinBajo[]="_";
@@ -97,12 +84,10 @@ int main (int argc, char **argv)
     	archivoSalida=fopen(nombre,"a");
         int aux = findString(lines[i], search);
         if(aux==1) {
-        	printf("%s: SI, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
-        	fprintf(archivoSalida, "%s\tSI\n", lines[i]);
-        }	//Imprime resultado
+        	fprintf(archivoSalida, "%s\tSI\n", lines[i]);	//Se imprime resultado en archivo salida comparador
+        }
         if(aux==0) {
-        	printf("%s: NO, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
-        	fprintf(archivoSalida, "%s\tNO\n", lines[i]);
+        	fprintf(archivoSalida, "%s\tNO\n", lines[i]);	//Se imprime resultado en archivo salida comparador
         }i++;
 
         fclose(archivoSalida);

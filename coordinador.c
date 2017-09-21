@@ -61,7 +61,7 @@ int main (int argc, char **argv)
 		printf ("Argumento sin opción %s\n", argv[index]);
 
 
-	printf("-----------------------------------\n");
+/*	printf("-----------------------------------\n");
 	printf("COORDINADOR\n");
 	printf("pid: %i\n", getpid());
 	printf("archivo: %s\n", file);
@@ -69,16 +69,7 @@ int main (int argc, char **argv)
 	printf("tamaño linea: %i\n", lineSize);
 	printf("cadena a buscar: %s\n", search);
 	printf("mostrar resultados: %i\n", flagShow);
-	printf("-----------------------------------\n");
-
-
-
-
-
-
-	//int lines = countLines(file, lineSize);			//Se cuentan las lineas
-
-	//forkComparador(file, 3, search, lineSize, 2); por ahora la funcion solo forkea un comparador...
+	printf("-----------------------------------\n");*/
 	
 	if (forkComparadores(file, search, lineSize, nProcesos))
 	{
@@ -101,7 +92,7 @@ int main (int argc, char **argv)
 	for (int i = 0; i < nProcesos; ++i){
 		char nombreArchivoParcial[]="rp";
 		char guion[]="_";
-		char procActual[5];
+		char procActual[12];
     	sprintf(procActual,"%d",i);
     	strcat(nombreArchivoParcial,guion);
     	strcat(nombreArchivoParcial,search);
@@ -112,16 +103,17 @@ int main (int argc, char **argv)
 
     	FILE *entrada;
     	entrada=fopen(nombreArchivoParcial,"r");
-    	char linea[lineSize];
+    	char linea[lineSize+7];
     	int cont=0;
     	while((feof(entrada))==0){
-    		fgets(linea,lineSize, entrada);
+    		fgets(linea,lineSize+7, entrada);
     		cont++;
     	}
     	rewind(entrada);
     	for (int j = 0; j < cont-1; ++j){
-    		fgets(linea,67, entrada);			
-			fprintf(salidaFinal, "%s\n",linea);
+    		fgets(linea,lineSize+7, entrada);			
+			fprintf(salidaFinal, "%s",linea);	//se imprime en el archivo de salida
+			if (flagShow)	printf("%s",linea);	//Si flag -d presente se imprime por pantalla
     	}
 		fclose(entrada);
     	
