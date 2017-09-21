@@ -75,21 +75,25 @@ int main (int argc, char **argv)
     //printf("COMPARADOR - pid: %i\n Linea inicial: %i\n", getpid(), cursor);
 
     int i = 0;
+    char guinBajo[]="_";
+   	char nombre[]="rp";
+    char pidx[5];
+    sprintf(pidx,"%d",numeroProceso);
+    strcat(nombre,guinBajo);
+    strcat(nombre,search);
+    strcat(nombre,guinBajo);
+    strcat(nombre,pidx);
+    strcat(nombre,".txt");
+    FILE *archivoNuevo;
+ 	archivoNuevo=fopen(nombre,"w");
+    fclose(archivoNuevo);
+
     while(i<linesToRead)
     {
-    	FILE *archivoNuevo;
+    
     	FILE *archivoSalida;
-    	char guinBajo[]="_";
-    	char nombre[]="rp";
-    	char pidx[5];
-    	sprintf(pidx,"%d",numeroProceso);
-    	strcat(nombre,guinBajo);
-    	strcat(nombre,search);
-    	strcat(nombre,guinBajo);
-    	strcat(nombre,pidx);
-    	strcat(nombre,".txt");
-    	archivoNuevo=fopen(nombre,"w");
-    	fclose(archivoNuevo);
+
+   
     	archivoSalida=fopen(nombre,"a");
         int aux = findString(lines[i], search);
         if(aux==1) {
