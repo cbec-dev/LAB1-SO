@@ -1,6 +1,6 @@
 
 DIR_OUTPUT = ./out
-DIR_SRC = ./
+DIR_SRC = ./source
 NOMBRE_EJECUTABLE = lab1
 NOMBRE_EJECUTABLE2 = comparador
 
