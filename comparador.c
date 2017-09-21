@@ -13,12 +13,13 @@ int main (int argc, char **argv)
 	char *search = NULL;
 	int lineSize = 0;
 	int linesToRead = 0;
+	int numeroProceso = 0;
 	int index;
 	int c;
 
 	opterr = 0;
 
-		while ((c = getopt (argc, argv, "i:c:p:n:l:")) != -1)	//i: archivo, c: cursor(línea), p: cadena a buscar,
+		while ((c = getopt (argc, argv, "i:c:p:n:l:w:")) != -1)	//i: archivo, c: cursor(línea), p: cadena a buscar,
 	  														//n: n° caracteres en cada línea, l: n° líneas a trabajar
 		switch (c)
 		{
@@ -36,6 +37,9 @@ int main (int argc, char **argv)
 			break;
 		case 'l':
 			linesToRead = atoi(optarg);
+			break;
+		case 'w':
+			numeroProceso = atoi(optarg);
 			break;
 		case '?':
 		if (optopt == 'c')
@@ -77,7 +81,7 @@ int main (int argc, char **argv)
     	char guinBajo[]="_";
     	char nombre[]="rc";
     	char pidx[5];
-    	sprintf(pidx,"%d",getpid());
+    	sprintf(pidx,"%d",numeroProceso);
     	strcat(nombre,guinBajo);
     	strcat(nombre,search);
     	strcat(nombre,guinBajo);
@@ -87,11 +91,11 @@ int main (int argc, char **argv)
         int aux = findString(lines[i], search);
         if(aux==1) {
         	printf("%s: SI, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
-        	fprintf(archivoSalida, "%s: SI, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
+        	fprintf(archivoSalida, "%s: SI\n", lines[i]);
         }	//Imprime resultado
         if(aux==0) {
         	printf("%s: NO, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
-        	fprintf(archivoSalida, "%s: NO, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
+        	fprintf(archivoSalida, "%s: NO\n", lines[i]);
         }i++;
 
         fclose(archivoSalida);

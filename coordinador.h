@@ -31,19 +31,21 @@ int countLines(char *fileName, int lineSize)	//Función que cuenta las lineas de
 }
 
 
-int forkComparador(char *i, int c, char *p, int n, int l)		// Función que forkea un comparador
+int forkComparador(char *i, int c, char *p, int n, int l, int w)		// Función que forkea un comparador
 {
-	char caux[12];
+	char caux[12];		// Se transforman los int a char para que funcionen con execl
 	char naux[12];
 	char laux[12];
+	char waux[12];
 	sprintf(caux, "%d", c);
 	sprintf(naux, "%d", n);
 	sprintf(laux, "%d", l);
+	sprintf(waux, "%d", w);
 
 	int pid = fork();
 	if(pid==0) 
 	{
-		execl("./comparador", "./comparador","-i",i,"-c",caux,"-p",p,"-n",naux,"-l",laux, (const char *)NULL);
+		execl("./comparador", "./comparador","-i",i,"-c",caux,"-p",p,"-n",naux,"-l",laux, "-w", waux, (const char *)NULL);
 		//printf("exec falló\n");
 		return 0;
 	} else if (pid > 0) 
@@ -81,7 +83,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 		int actualLine = 0;
 		while(creados < nProcesos)
 		{
-			if (forkComparador(i, actualLine, p, n, lines/nProcesos))	//Si fork es exitoso
+			if (forkComparador(i, actualLine, p, n, lines/nProcesos, creados))	//Si fork es exitoso
 			{
 				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + lines/nProcesos;
@@ -101,7 +103,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 		int creados = 0;
 		while(creados < nProcesos-1)
 		{
-			if (forkComparador(i, actualLine, p, n, lines/nProcesos))	//Si fork es exitoso
+			if (forkComparador(i, actualLine, p, n, lines/nProcesos, creados))	//Si fork es exitoso
 			{
 				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + lines/nProcesos;
@@ -111,7 +113,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 
 		}
 
-		if (forkComparador(i, actualLine, p, n, (lines/nProcesos)+(lines%nProcesos))) 
+		if (forkComparador(i, actualLine, p, n, (lines/nProcesos)+(lines%nProcesos), creados)) 
 			{
 				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + (lines/nProcesos)+(lines%nProcesos);
