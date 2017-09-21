@@ -72,6 +72,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 		printf("Error: Número de procesos mayor que el número de líneas\n");
 		return 0;
 	}
+
 	if(lines%nProcesos==0) 		//Todos los procesos trabajan el mismo número de líneas
 	{
 		printf("se crean %d procesos y trabajan %d líneas cada uno\n", nProcesos, lines/nProcesos);
@@ -82,8 +83,10 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 		{
 			if (forkComparador(i, actualLine, p, n, lines/nProcesos))	//Si fork es exitoso
 			{
+				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + lines/nProcesos;
 				creados++;
+				
 			}
 			else return 0; //Falla un fork, no se pudieron forkear todos los procesos
 		}
@@ -100,6 +103,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 		{
 			if (forkComparador(i, actualLine, p, n, lines/nProcesos))	//Si fork es exitoso
 			{
+				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + lines/nProcesos;
 				creados++;
 			}
@@ -109,6 +113,7 @@ int forkComparadores(char *i, char *p, int n, int nProcesos)		//Función que for
 
 		if (forkComparador(i, actualLine, p, n, (lines/nProcesos)+(lines%nProcesos))) 
 			{
+				printf("pid es %d\n",getpid() );
 				actualLine = actualLine + (lines/nProcesos)+(lines%nProcesos);
 				creados++;
 				return 1;

@@ -73,10 +73,28 @@ int main (int argc, char **argv)
     int i = 0;
     while(i<linesToRead)
     {
+    	FILE *archivoSalida;
+    	char guinBajo[]="_";
+    	char nombre[]="rc";
+    	char pidx[5];
+    	sprintf(pidx,"%d",getpid());
+    	strcat(nombre,guinBajo);
+    	strcat(nombre,search);
+    	strcat(nombre,guinBajo);
+    	strcat(nombre,pidx);
+    	strcat(nombre,".txt");
+    	archivoSalida=fopen(nombre,"w");
         int aux = findString(lines[i], search);
-        if(aux==1) printf("%s: SI, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());	//Imprime resultado
-        if(aux==0) printf("%s: NO, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());	//Imprime resultado
-        i++;
+        if(aux==1) {
+        	printf("%s: SI, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
+        	fprintf(archivoSalida, "%s: SI, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
+        }	//Imprime resultado
+        if(aux==0) {
+        	printf("%s: NO, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
+        	fprintf(archivoSalida, "%s: NO, línea: %d, pid: %d\n", lines[i], cursor+i, getpid());
+        }i++;
+
+        fclose(archivoSalida);
     }
 
 

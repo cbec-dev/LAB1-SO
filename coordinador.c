@@ -59,6 +59,8 @@ int main (int argc, char **argv)
 
 	for (index = optind; index < argc; index++)
 		printf ("Argumento sin opción %s\n", argv[index]);
+
+
 	printf("-----------------------------------\n");
 	printf("COORDINADOR\n");
 	printf("pid: %i\n", getpid());
@@ -77,6 +79,7 @@ int main (int argc, char **argv)
 	//int lines = countLines(file, lineSize);			//Se cuentan las lineas
 
 	//forkComparador(file, 3, search, lineSize, 2); por ahora la funcion solo forkea un comparador...
+	
 	if (forkComparadores(file, search, lineSize, nProcesos))
 	{
 		while (wait(NULL) > 0);			//Esperar a que terminen los procesos hijos.
